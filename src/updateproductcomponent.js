@@ -85,9 +85,9 @@ var productId = this.props.productId;
     axios.post("http://www.api-training.sclmedia.ca/product/update.php", {
       data: JSON.stringify(form_data)
     })
-    .then(function (response) {
+    .then(response => {
       console.log(response);
-       //this.setState({successUpdate: response});
+       this.setState({successUpdate: response.data.message});
       //form.reset()
     })
     .catch(function(error) {
