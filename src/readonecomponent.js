@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import axios from 'axios'
 import './App.css'
 
@@ -8,46 +7,40 @@ const home_link = 'http://www.api-training.sclmedia.ca/product/';
 class ReadOneProductComponent extends Component {
 
  // initial mode is 'read' mode
-     constructor(props, context) {
+  constructor(props, context) {
     super(props, context);
-   // this.changeAppMode = this.changeAppMode.bind(this);
-      this.state = {
-            id: 0,
-            name: '',
-            description: '',
-            price: 0,
-            category_name: ''
+
+    this.state = {
+      id: 0,
+      name: '',
+      description: '',
+      price: 0,
+      category_name: ''
     };
   }
 
-      componentDidMount() {
-var productId = this.props.productId;
+  componentDidMount() {
+    var productId = this.props.productId;
 
-
-        console.log(home_link);
-        axios.get(home_link+"read_one.php?id="+productId).then(response => {
-          this.setState({category_name: response.data.category_name}),
-          this.setState({id: response.data.id}),
-          this.setState({name: response.data.name}),
-          this.setState({description: response.data.description}),
-          this.setState({price: response.data.price})
-      })
-      }
-
-    //       componentWillUnmount() {
-    //     this.axios.abort();
-    // }
+    axios.get(home_link+"read_one.php?id="+productId).then(response => {  
+      this.setState({id: response.data.id}),
+      this.setState({name: response.data.name}),
+       this.setState({category_name: response.data.category_name}),
+      this.setState({description: response.data.description}),
+      this.setState({price: response.data.price})
+    })
+  }
 
   render() {
      console.log("test");
     return (
 
      <div>
-                <a href='#'
+                <button type='button'
                     onClick={() => this.props.changeAppMode('read')}
                     className='btn btn-primary margin-bottom-1em'>
                     Read Products
-                </a>
+                </button>
      
                 <form onSubmit={this.onSave}>
                     <table className='table table-bordered table-hover'>

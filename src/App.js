@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import registerServiceWorker from './registerServiceWorker';
 import ReadOneProductComponent from './readonecomponent';
 import CreateProductComponent from './createproductcomponent';
 import UpdateProductComponent from './updateproductcomponent';

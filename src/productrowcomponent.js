@@ -10,18 +10,18 @@ class ProductRow extends Component {
             <td>${parseFloat(this.props.product.price).toFixed(2)}</td>
             <td>{this.props.product.category_name}</td>
             <td>
-                <a href='#'
+                <button type="button"
                     onClick={() => this.props.changeAppMode('readOne', this.props.product.id)}
                     className='btn btn-info m-r-1em'> Read One
-                </a>
-                <a href='#'
+                </button>
+                 <button type="button"
                     onClick={() => this.props.changeAppMode('update', this.props.product.id)}
                     className='btn btn-primary m-r-1em'> Edit
-                </a>
-                <a
+                </button>
+                <button type="button"
                     onClick={() => this.props.changeAppMode('delete', this.props.product.id)}
                     className='btn btn-danger'> Delete
-                </a>
+                </button>
             </td>
         </tr>
     )

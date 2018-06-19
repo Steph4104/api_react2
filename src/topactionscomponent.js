@@ -5,10 +5,10 @@ class TopActionsComponent extends Component {
   render() {
     return (
       <div>
-                <a href='#'
+                <button type='button'
                     onClick={() => this.props.changeAppMode('create')}
                     className='btn btn-primary margin-bottom-1em'> Create product
-                </a>
+                </button>
             </div>
     )
   }

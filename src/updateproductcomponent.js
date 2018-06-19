@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import axios from 'axios'
 import './App.css'
 
@@ -8,36 +7,32 @@ const home_link = 'http://www.api-training.sclmedia.ca/product/';
 class UpdateProductComponent extends Component {
 
  // initial mode is 'read' mode
-     constructor(props, context) {
+    constructor(props, context) {
     super(props, context);
-    this.onNameChange = this.onNameChange.bind(this);
-    this.onCategoryChange = this.onCategoryChange.bind(this);
-    this.onDescriptionChange = this.onDescriptionChange.bind(this);
-    this.onPriceChange = this.onPriceChange.bind(this);
-     this.onSave = this.onSave.bind(this);
-      this.state = {
-          categories: [],
+        this.onNameChange = this.onNameChange.bind(this);
+        this.onCategoryChange = this.onCategoryChange.bind(this);
+        this.onDescriptionChange = this.onDescriptionChange.bind(this);
+        this.onPriceChange = this.onPriceChange.bind(this);
+        this.onSave = this.onSave.bind(this);
+        this.state = {
+            categories: [],
             selectedCategoryId: 0,
             id: 0,
             name: '',
             description: '',
             price: 0,
             successUpdate: null
-    };
-  }
+        };
+    }
 
-      componentDidMount() {
+    componentDidMount() {
 
         axios.get('http://www.api-training.sclmedia.ca/category/read.php').then(categories => 
           this.setState({categories: categories.data.records})
-      )
+        )
 
+        var productId = this.props.productId;
 
-
-var productId = this.props.productId;
-
-
-        
         axios.get(home_link+"read_one.php?id="+productId).then(response => {
           console.log(response.data.id);
           this.setState({category_name: response.data.category_name}),
@@ -45,10 +40,10 @@ var productId = this.props.productId;
           this.setState({name: response.data.name}),
           this.setState({description: response.data.description}),
           this.setState({price: response.data.price})
-      })
-      }
+        })
+    }
 
-      onCategoryChange(e){
+    onCategoryChange(e){
         this.setState({selectedCategoryId: e.target.value});
     }
     
@@ -78,9 +73,6 @@ var productId = this.props.productId;
             price: this.state.price,
             category_id: this.state.selectedCategoryId
         };
-    console.log(form_data);
-        // submit form data to api
-
 
     axios.post("http://www.api-training.sclmedia.ca/product/update.php", {
       data: JSON.stringify(form_data)
@@ -88,37 +80,16 @@ var productId = this.props.productId;
     .then(response => {
       console.log(response);
        this.setState({successUpdate: response.data.message});
-      //form.reset()
     })
     .catch(function(error) {
       console.log(error);
-      //form.reset()
     });
-
-        // $.ajax({
-        //     url: "http://www.api-training.sclmedia.ca/product/update.php",
-        //     type : "POST",
-        //     contentType : 'application/json',
-        //     data : JSON.stringify(form_data),
-        //     success : function(response) {
-        //         this.setState({successUpdate: response['message']});
-        //     }.bind(this),
-        //     error: function(xhr, resp, text){
-        //         // show error to console
-        //         console.log(xhr, resp, text);
-        //     }
-        // });
     
         e.preventDefault();
     }
-    
 
-    //       componentWillUnmount() {
-    //     this.axios.abort();
-    // }
-
-  render() {
-     var categoriesOptions = this.state.categories.map(function(category){
+    render() {
+        var categoriesOptions = this.state.categories.map(function(category){
             return (
                 <option key={category.id} value={category.id}>{category.name}</option>
             );
@@ -127,7 +98,7 @@ var productId = this.props.productId;
 
     <div>
                 {
-                    this.state.successUpdate == "Product was updated." ?
+                    this.state.successUpdate === "Product was updated." ?
                         <div className='alert alert-success'>
                             Product was updated.
                         </div>
@@ -135,18 +106,18 @@ var productId = this.props.productId;
                 }
      
                 {
-                    this.state.successUpdate == "Unable to update product." ?
+                    this.state.successUpdate === "Unable to update product." ?
                         <div className='alert alert-danger'>
                             Unable to update product. Please try again.
                         </div>
                     : null
                 }
      
-                <a href='#'
+                <button type='button'
                     onClick={() => this.props.changeAppMode('read')}
                     className='btn btn-primary margin-bottom-1em'>
                     Read Products
-                </a>
+                </button>
      
                 <form onSubmit={this.onSave}>
                     <table className='table table-bordered table-hover'>
