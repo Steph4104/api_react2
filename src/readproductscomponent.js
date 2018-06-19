@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './App.css'
 import axios from 'axios'
 import TopActionsComponent from './topactionscomponent';
-import TopFiltersComponent from './topfiltercomponent';
 import ProductsTable from './producttablecomponent';
 const home_link = 'http://www.api-training.sclmedia.ca/product/';
 class ReadProductsComponent extends Component {
@@ -13,6 +12,8 @@ class ReadProductsComponent extends Component {
             products: [],
             value:'select'
     };
+    this.handleInput = this.handleInput.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   };
 
   componentDidMount() {
@@ -22,10 +23,14 @@ class ReadProductsComponent extends Component {
 
 
     handleInput(event){
-        // this.setState({search: event.target.value});
       var value = event.target.value;
-      console.log(value);
-      axios.get(home_link+"search.php?s=watch").then(response => {this.setState({products: response.data.records});
+      axios.get(home_link+"search.php?s="+value).then(response => {this.setState({products: response.data.records});
+    })
+    }
+
+        handleClick(event){
+      var value = event.target.value;
+      axios.get(home_link+"filter.php?category="+value).then(response => {this.setState({products: response.data.records});
     })
     }
 
@@ -41,9 +46,17 @@ class ReadProductsComponent extends Component {
       <div className='overflow-hidden'>
             
                 <TopActionsComponent changeAppMode={this.props.changeAppMode} />
-                <TopFiltersComponent/>
 
-                <input type='text' name='search' defaultValue="watch" onChange={this.handleInput}/>
+                <input type='text' name='search' onChange={this.handleInput}/>
+                  
+                 <select onChange={this.handleClick}>
+  <option value="books">books</option>
+  <option value="movies">movie</option>
+  <option value="fashion">fashion</option>
+  <option value="electronics">electronics</option>
+  <option value="">all</option>
+  
+</select>
     
                 <ProductsTable
                     products={this.state.products}
