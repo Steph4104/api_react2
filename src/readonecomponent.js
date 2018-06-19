@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './App.css'
+import YouTube from 'react-youtube';
+const videoIdA = 'I6pCg2MPr8k';
 
 const home_link = 'http://www.api-training.sclmedia.ca/product/';
 
@@ -15,7 +17,9 @@ class ReadOneProductComponent extends Component {
       name: '',
       description: '',
       price: 0,
-      category_name: ''
+      category_name: '',
+      videoId: videoIdA,
+      player: null,
     };
   }
 
@@ -31,17 +35,31 @@ class ReadOneProductComponent extends Component {
     })
   }
 
+ onReady = (event) => {
+    console.log(`YouTube Player object for videoId: "${this.state.videoId}" has been saved to state.`); // eslint-disable-line
+    this.setState({
+      player: event.target,
+    });
+  }
+
+  onPlay = (event) => {
+    this.setState({
+      title: this.state.player.getVideoData().title,
+    });
+  }
+
   render() {
-     console.log("test");
     return (
 
      <div>
-                <button type='button'
-                    onClick={() => this.props.changeAppMode('read')}
-                    className='btn btn-primary margin-bottom-1em'>
-                    Read Products
-                </button>
-     
+        <button type='button'
+          onClick={() => this.props.changeAppMode('read')}
+          className='btn btn-primary margin-bottom-1em'>
+          Read Products
+        </button>
+        <div class="row align-items-center justify-content-center">
+          <div class="d-block mx-auto"><YouTube videoId={this.state.description} onReady={this.onReady} onPlay={this.onPlay}/>
+        </div> </div>               
                 <form onSubmit={this.onSave}>
                     <table className='table table-bordered table-hover'>
                         <tbody>
@@ -51,13 +69,13 @@ class ReadOneProductComponent extends Component {
                         </tr>
      
                         <tr>
-                            <td>Description</td>
+                            <td>Video id</td>
                             <td>{this.state.description}</td>
                         </tr>
      
                         <tr>
-                            <td>Price ($)</td>
-                            <td>${parseFloat(this.state.price).toFixed(2)}</td>
+                            <td>Temps</td>
+                            <td>{this.state.price}</td>
                         </tr>
      
                         <tr>
@@ -68,6 +86,7 @@ class ReadOneProductComponent extends Component {
                         </tbody>
                     </table>
                 </form>
+                
             </div>
     )
   }

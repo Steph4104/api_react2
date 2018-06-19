@@ -134,7 +134,7 @@ class CreateProductComponent extends Component {
                     </tr>
      
                     <tr>
-                        <td>Price ($)</td>
+                        <td>Temps</td>
                         <td>
                             <input
                                 type='number'

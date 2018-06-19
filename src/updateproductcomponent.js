@@ -135,7 +135,7 @@ class UpdateProductComponent extends Component {
                         </tr>
      
                         <tr>
-                            <td>Description</td>
+                            <td>Video id</td>
                             <td>
                                 <textarea
                                     type='text'
@@ -147,7 +147,7 @@ class UpdateProductComponent extends Component {
                         </tr>
      
                         <tr>
-                            <td>Price ($)</td>
+                            <td>Temps</td>
                             <td>
                                 <input
                                     type='number'
