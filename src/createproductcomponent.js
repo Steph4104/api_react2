@@ -29,7 +29,7 @@ class CreateProductComponent extends Component {
         axios.get('http://www.api-training.sclmedia.ca/category/read.php').then(categories => 
             this.setState({categories: categories.data.records})
         )
-       //$('.page-header h1').text('Create product');
+        document.getElementById('header').innerHTML = 'Create product';
     }
 
     onCategoryChange(e){

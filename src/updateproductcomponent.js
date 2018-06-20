@@ -30,6 +30,7 @@ class UpdateProductComponent extends Component {
         axios.get('http://www.api-training.sclmedia.ca/category/read.php').then(categories => 
           this.setState({categories: categories.data.records})
         )
+        document.getElementById('header').innerHTML = 'Update product';
 
         var productId = this.props.productId;
 

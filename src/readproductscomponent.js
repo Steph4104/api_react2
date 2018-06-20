@@ -3,8 +3,15 @@ import './App.css'
 import axios from 'axios'
 import TopActionsComponent from './topactionscomponent';
 import ProductsTable from './producttablecomponent';
-const home_link = 'http://www.api-training.sclmedia.ca/product/';
+import Grid from 'react-bootstrap/lib/Grid';
+import Col from 'react-bootstrap/lib/Col';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import InputGroup from 'react-bootstrap/lib/InputGroup';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
+
+const home_link = 'http://www.api-training.sclmedia.ca/product/';
 class ReadProductsComponent extends Component {
     // initial mode is 'read' mode
   constructor(props, context) {
@@ -19,6 +26,7 @@ class ReadProductsComponent extends Component {
 
   componentDidMount() {
     axios.get(home_link+"read.php").then(response => this.setState({products: response.data.records}))
+     document.getElementById('header').innerHTML = 'Read Products';
   }
 
   handleInput(event){
@@ -34,26 +42,47 @@ class ReadProductsComponent extends Component {
   }
 
   render() {
-
-       // $('.page-header h1').text('Read Products');
+      var object = this.refs.header;
+      console.log(object);
+        //$('.page-header h1').text('Read Products');
     return (
-      <div className='overflow-hidden'>
-            
-        <TopActionsComponent changeAppMode={this.props.changeAppMode} />
+      <div>
+        <Grid>    
+          <Col xs={12} md={3}> 
+            <TopActionsComponent changeAppMode={this.props.changeAppMode} />
+          </Col>
+          <Col xs={12} mdOffset={3} md={3}> 
+          <InputGroup>
+      <InputGroup.Addon><Glyphicon glyph="search" /></InputGroup.Addon>
+              <FormControl
+      id="search"
+      name="search"
+      type="text"
+      label="Text"
+      placeholder="search"
+      onChange={this.handleInput}/>
+           </InputGroup>
+             </Col>
+          <Col xs={12} md={3}> 
 
-        <input type='text' name='search' onChange={this.handleInput}/>
-                  
-        <select onChange={this.handleClick}>
+          <FormGroup controlId="formControlsSelect">
+      
+      <FormControl componentClass="select" placeholder="All" onChange={this.handleClick}>
         <option value="all">All</option>
           <option value="upper">Upper</option>
           <option value="core">Core</option>
           <option value="lower">Lower</option>
           <option value="total">Total</option>
-        </select>
-    
+      </FormControl>
+   
+    </FormGroup>       
+      </Col>
+          <Col xs={12} md={12}> 
         <ProductsTable
           products={this.state.products}
         changeAppMode={this.props.changeAppMode} />
+        </Col>
+       </Grid> 
       </div>
     )
   }

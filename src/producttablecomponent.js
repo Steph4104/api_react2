@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './App.css'
 import ProductRow from './productrowcomponent'
+import Table from 'react-bootstrap/lib/Table';
+
 
 class ProductsTable extends Component {
   render() {
@@ -17,7 +19,7 @@ class ProductsTable extends Component {
             !rows.length
                 ? <div className='alert alert-danger'>No products found.</div>
                 :
-                <table className='table table-bordered table-hover'>
+                <Table striped bordered condensed hover>
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -30,7 +32,7 @@ class ProductsTable extends Component {
                     <tbody>
                         {rows}
                     </tbody>
-                </table>
+                </Table>
         );
   }
 }
