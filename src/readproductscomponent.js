@@ -44,11 +44,11 @@ class ReadProductsComponent extends Component {
         <input type='text' name='search' onChange={this.handleInput}/>
                   
         <select onChange={this.handleClick}>
-          <option value="books">books</option>
-          <option value="movies">movie</option>
-          <option value="fashion">fashion</option>
-          <option value="electronics">electronics</option>
-          <option value="">all</option>
+        <option value="all">All</option>
+          <option value="upper">Upper</option>
+          <option value="core">Core</option>
+          <option value="lower">Lower</option>
+          <option value="total">Total</option>
         </select>
     
         <ProductsTable
